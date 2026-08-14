@@ -1,39 +1,42 @@
-import { site } from "@/data/site";
+"use client";
+
+import { useUi } from "@/components/ui-provider";
 
 export function Certifications() {
-  return (
-    <section
-      id="certifications"
-      className="bg-mist px-6 py-24 md:px-10 md:py-28"
-    >
-      <div className="mx-auto max-w-6xl">
-        <div className="section-rule mb-8 h-px w-24 bg-sea" />
-        <h2 className="font-[family-name:var(--font-syne)] text-4xl font-semibold tracking-tight text-ink md:text-5xl">
-          Certifications
-        </h2>
-        <p className="mt-4 max-w-2xl text-lg text-ink-soft">
-          Parcours de certification réseau, cybersécurité et gestion des risques.
-        </p>
+  const { t } = useUi();
+  const certs = t.certs;
 
-        <ul className="mt-12 divide-y divide-line border-y border-line">
-          {site.certifications.map((cert) => (
+  return (
+    <section id="certifications" className="bg-mist px-6 py-24 md:px-10 md:py-28">
+      <div className="mx-auto max-w-6xl">
+        <p className="text-xs font-semibold tracking-[0.2em] text-blue uppercase">
+          {certs.kicker}
+        </p>
+        <h2 className="mt-4 font-[family-name:var(--font-syne)] text-4xl font-semibold tracking-tight text-ink md:text-5xl">
+          {certs.title}
+        </h2>
+
+        <ul className="mt-12 grid gap-5 md:grid-cols-2">
+          {certs.items.map((item, i) => (
             <li
-              key={cert.title}
-              className="grid gap-2 py-6 sm:grid-cols-[1fr_auto] sm:items-baseline"
+              key={item.title}
+              className="group border border-line bg-card p-6 transition-transform hover:-translate-y-1 hover:border-blue/40"
             >
-              <div>
-                <h3 className="font-[family-name:var(--font-syne)] text-xl font-semibold text-ink">
-                  {cert.title}
-                </h3>
-                <p className="mt-1 text-sm text-ink-soft">{cert.issuer}</p>
+              <div className="flex items-start justify-between gap-4">
+                <span className="font-[family-name:var(--font-syne)] text-3xl font-semibold text-blue/70">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-xs font-semibold tracking-wide text-blue uppercase">
+                  {item.status}
+                </span>
               </div>
-              <span
-                className={`text-sm font-medium ${
-                  cert.status === "En cours" ? "text-sea" : "text-ink-soft"
-                }`}
-              >
-                {cert.status}
-              </span>
+              <h3 className="mt-4 font-[family-name:var(--font-syne)] text-2xl font-semibold text-ink group-hover:text-blue">
+                {item.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+                {item.detail}
+              </p>
+              <p className="mt-4 text-sm text-ink">{item.issuer}</p>
             </li>
           ))}
         </ul>

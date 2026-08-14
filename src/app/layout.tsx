@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Figtree, Syne } from "next/font/google";
+import { UiProvider } from "@/components/ui-provider";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -15,18 +16,27 @@ const figtree = Figtree({
 });
 
 export const metadata: Metadata = {
-  title: `${site.name} — Portfolio`,
-  description: site.tagline,
+  title: `${site.name} — Administrateur Systèmes, Réseaux & Sécurité`,
+  description:
+    "Portfolio de Serge TSOPZE, administrateur systèmes, réseaux et sécurité. Alternance M2 dès septembre 2026.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr"
-      className={`${syne.variable} ${figtree.variable} h-full antialiased`}
+      className={`${syne.variable} ${figtree.variable} dark h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem("portfolio-theme");document.documentElement.classList.toggle("dark",t!=="light");document.documentElement.classList.toggle("light",t==="light");}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-paper text-ink">
-        {children}
+        <UiProvider>{children}</UiProvider>
       </body>
     </html>
   );
