@@ -32,6 +32,41 @@ export type ProjectCategory =
   | "web"
   | "cloud";
 
+const projectImages = {
+  linuxHardening: [
+    "/projects/linux-hardening/01.jpg",
+    "/projects/linux-hardening/02.jpg",
+  ],
+  wazuh: [
+    "/projects/wazuh/01.png",
+    "/projects/wazuh/02.png",
+    "/projects/wazuh/03.png",
+    "/projects/wazuh/04.png",
+  ],
+  passbolt: [
+    "/projects/passbolt/01.png",
+    "/projects/passbolt/02.png",
+    "/projects/passbolt/03.png",
+  ],
+  archiReseau: [
+    "/projects/archi-reseau/01.jpg",
+    "/projects/archi-reseau/02.jpg",
+  ],
+  exploitation: [
+    "/projects/exploitation/01.jpg",
+    "/projects/exploitation/02.jpg",
+  ],
+  workspaceIam: [
+    "/projects/workspace-iam/01.jpg",
+    "/projects/workspace-iam/02.jpg",
+  ],
+  pam: ["/projects/pam/01.jpg", "/projects/pam/02.jpg"],
+  outilsInternes: [
+    "/projects/outils-internes/01.jpg",
+    "/projects/outils-internes/02.jpg",
+  ],
+} as const;
+
 export const copy = {
   fr: {
     welcome: "Bienvenue sur mon portfolio",
@@ -178,9 +213,7 @@ export const copy = {
             "WAF pour filtrer les requêtes web malveillantes",
             "Comptes, sudo, journalisation et sauvegardes",
           ],
-          images: [
-            "/projects/placeholder.svg",
-          ],
+          images: projectImages.linuxHardening,
         },
         {
           id: "wazuh",
@@ -193,12 +226,7 @@ export const copy = {
           role: "Déploiement & exploitation SIEM",
           result: "Visibilité centralisée, incidents traités et actions correctives documentées.",
           stack: ["Wazuh", "SIEM", "Logs", "Linux"],
-          images: [
-            "/projects/wazuh/01.png",
-            "/projects/wazuh/02.png",
-            "/projects/wazuh/03.png",
-            "/projects/wazuh/04.png",
-          ],
+          images: projectImages.wazuh,
         },
         {
           id: "passbolt",
@@ -211,11 +239,7 @@ export const copy = {
           role: "Gouvernance des secrets",
           result: "Secrets centralisés, accès nominatifs et traçabilité des partages.",
           stack: ["Passbolt", "Linux", "IAM"],
-          images: [
-            "/projects/passbolt/01.png",
-            "/projects/passbolt/02.png",
-            "/projects/passbolt/03.png",
-          ],
+          images: projectImages.passbolt,
         },
         {
           id: "archi-reseau",
@@ -228,9 +252,7 @@ export const copy = {
           role: "Conception & administration réseau",
           result: "Flux isolés, accès inter-VLAN maîtrisés, architecture documentée.",
           stack: ["VLAN L2/L3", "ACL", "Segmentation"],
-          images: [
-            "/projects/placeholder.svg",
-          ],
+          images: projectImages.archiReseau,
         },
         {
           id: "exploitation",
@@ -243,9 +265,7 @@ export const copy = {
           role: "Exploitation & MCO",
           result: "Parc VoIP opérationnel, tickets tracés, procédures à jour.",
           stack: ["VoIP", "ITSM", "SOP"],
-          images: [
-            "/projects/placeholder.svg",
-          ],
+          images: projectImages.exploitation,
         },
         {
           id: "workspace-iam",
@@ -258,9 +278,7 @@ export const copy = {
           role: "Cloud & IAM",
           result: "Annuaire structuré, accès nominatifs et revues de droits.",
           stack: ["Google Workspace", "IAM", "Active Directory"],
-          images: [
-            "/projects/placeholder.svg",
-          ],
+          images: projectImages.workspaceIam,
         },
         {
           id: "pam",
@@ -273,9 +291,7 @@ export const copy = {
           role: "Architecture & déploiement (projet perso)",
           result: "Cible : vault des comptes privilegiés et traçabilité des sessions admin.",
           stack: ["PAM", "Linux", "IAM"],
-          images: [
-            "/projects/placeholder.svg",
-          ],
+          images: projectImages.pam,
         },
         {
           id: "outils-internes",
@@ -288,9 +304,7 @@ export const copy = {
           role: "Développement & automatisation",
           result: "Parc tracé, émargements centralisés, moins de tâches manuelles.",
           stack: ["Apps Script", "Python", "PowerShell", "Bash"],
-          images: [
-            "/projects/placeholder.svg",
-          ],
+          images: projectImages.outilsInternes,
         },
       ],
     },
@@ -569,9 +583,7 @@ export const copy = {
             "WAF to filter malicious web requests",
             "Accounts, sudo, logging and backups",
           ],
-          images: [
-            "/projects/placeholder.svg",
-          ],
+          images: projectImages.linuxHardening,
         },
         {
           id: "wazuh",
@@ -584,12 +596,7 @@ export const copy = {
           role: "SIEM deployment & operations",
           result: "Centralised visibility, handled incidents and documented corrective actions.",
           stack: ["Wazuh", "SIEM", "Logs", "Linux"],
-          images: [
-            "/projects/wazuh/01.png",
-            "/projects/wazuh/02.png",
-            "/projects/wazuh/03.png",
-            "/projects/wazuh/04.png",
-          ],
+          images: projectImages.wazuh,
         },
         {
           id: "passbolt",
@@ -602,11 +609,7 @@ export const copy = {
           role: "Secrets governance",
           result: "Centralised secrets, named access and sharing traceability.",
           stack: ["Passbolt", "Linux", "IAM"],
-          images: [
-            "/projects/passbolt/01.png",
-            "/projects/passbolt/02.png",
-            "/projects/passbolt/03.png",
-          ],
+          images: projectImages.passbolt,
         },
         {
           id: "archi-reseau",
@@ -619,9 +622,7 @@ export const copy = {
           role: "Network design & administration",
           result: "Isolated flows, controlled inter-VLAN access, documented architecture.",
           stack: ["L2/L3 VLAN", "ACL", "Segmentation"],
-          images: [
-            "/projects/placeholder.svg",
-          ],
+          images: projectImages.archiReseau,
         },
         {
           id: "exploitation",
@@ -634,9 +635,7 @@ export const copy = {
           role: "Operations / run",
           result: "Working VoIP estate, traced tickets, up-to-date procedures.",
           stack: ["VoIP", "ITSM", "SOP"],
-          images: [
-            "/projects/placeholder.svg",
-          ],
+          images: projectImages.exploitation,
         },
         {
           id: "workspace-iam",
@@ -649,9 +648,7 @@ export const copy = {
           role: "Cloud & IAM",
           result: "Structured directory, named access and rights reviews.",
           stack: ["Google Workspace", "IAM", "Active Directory"],
-          images: [
-            "/projects/placeholder.svg",
-          ],
+          images: projectImages.workspaceIam,
         },
         {
           id: "pam",
@@ -664,9 +661,7 @@ export const copy = {
           role: "Architecture & deployment (personal project)",
           result: "Target: privileged-account vault and admin-session traceability.",
           stack: ["PAM", "Linux", "IAM"],
-          images: [
-            "/projects/placeholder.svg",
-          ],
+          images: projectImages.pam,
         },
         {
           id: "outils-internes",
@@ -679,9 +674,7 @@ export const copy = {
           role: "Development & automation",
           result: "Traced estate, centralised sign-offs, less manual work.",
           stack: ["Apps Script", "Python", "PowerShell", "Bash"],
-          images: [
-            "/projects/placeholder.svg",
-          ],
+          images: projectImages.outilsInternes,
         },
       ],
     },

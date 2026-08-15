@@ -7,6 +7,33 @@ import { useUi } from "@/components/ui-provider";
 
 type ProjectItem = ReturnType<typeof useUi>["t"]["projects"]["items"][number];
 
+function Slide({
+  src,
+  title,
+  index,
+  compact,
+}: {
+  src: string;
+  title: string;
+  index: number;
+  compact?: boolean;
+}) {
+  const isSvg = src.endsWith(".svg");
+  if (isSvg) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={src} alt={`${title} ${index + 1}`} className="h-full w-full object-cover" />;
+  }
+  return (
+    <Image
+      src={src}
+      alt={`${title} ${index + 1}`}
+      fill
+      className="object-cover object-top"
+      sizes={compact ? "(max-width: 768px) 100vw, 33vw" : "90vw"}
+    />
+  );
+}
+
 function Gallery({
   title,
   images,
@@ -17,16 +44,17 @@ function Gallery({
   compact?: boolean;
 }) {
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
   const count = images.length;
 
   useEffect(() => {
-    if (count < 2 || paused) return;
-    const timer = window.setInterval(() => {
-      setIndex((i) => (i + 1) % count);
-    }, 3500);
-    return () => window.clearInterval(timer);
-  }, [count, paused]);
+    if (compact || count < 2) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") setIndex((i) => (i - 1 + count) % count);
+      if (e.key === "ArrowRight") setIndex((i) => (i + 1) % count);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [compact, count]);
 
   if (!count) {
     return (
@@ -36,37 +64,26 @@ function Gallery({
     );
   }
 
+  if (compact) {
+    return (
+      <div className="relative aspect-[16/9] overflow-hidden bg-ink/10">
+        <Slide src={images[0]} title={title} index={0} compact />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+      </div>
+    );
+  }
+
   return (
-    <div
-      className={`relative overflow-hidden bg-ink/10 ${
-        compact ? "aspect-[16/9]" : "aspect-[16/9] md:aspect-[16/8]"
-      }`}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
+    <div className="relative aspect-[16/9] overflow-hidden bg-ink/10 md:aspect-[16/8]">
       <div
-        className="flex h-full transition-transform duration-700 ease-out"
+        className="flex h-full transition-transform duration-500 ease-out"
         style={{ transform: `translateX(-${index * 100}%)` }}
       >
-        {images.map((src, i) => {
-          const isSvg = src.endsWith(".svg");
-          return (
-            <div key={src} className="relative h-full w-full shrink-0">
-              {isSvg ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={src} alt={`${title} ${i + 1}`} className="h-full w-full object-cover" />
-              ) : (
-                <Image
-                  src={src}
-                  alt={`${title} ${i + 1}`}
-                  fill
-                  className="object-cover object-top"
-                  sizes={compact ? "(max-width: 768px) 100vw, 33vw" : "90vw"}
-                />
-              )}
-            </div>
-          );
-        })}
+        {images.map((src, i) => (
+          <div key={src} className="relative h-full w-full shrink-0">
+            <Slide src={src} title={title} index={i} />
+          </div>
+        ))}
       </div>
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
 
@@ -79,7 +96,7 @@ function Gallery({
               e.stopPropagation();
               setIndex((i) => (i - 1 + count) % count);
             }}
-            className="absolute top-1/2 left-2 z-10 -translate-y-1/2 bg-black/45 px-2 py-1 text-sm text-white opacity-0 transition-opacity group-hover:opacity-100"
+            className="absolute top-1/2 left-2 z-10 -translate-y-1/2 bg-black/45 px-2 py-1 text-sm text-white"
           >
             ‹
           </button>
@@ -90,7 +107,7 @@ function Gallery({
               e.stopPropagation();
               setIndex((i) => (i + 1) % count);
             }}
-            className="absolute top-1/2 right-2 z-10 -translate-y-1/2 bg-black/45 px-2 py-1 text-sm text-white opacity-0 transition-opacity group-hover:opacity-100"
+            className="absolute top-1/2 right-2 z-10 -translate-y-1/2 bg-black/45 px-2 py-1 text-sm text-white"
           >
             ›
           </button>
@@ -232,9 +249,7 @@ export function Projects() {
             className="max-h-[92vh] w-full max-w-3xl overflow-y-auto bg-card text-ink shadow-2xl sm:rounded-lg"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="group">
-              <Gallery title={active.title} images={active.images} />
-            </div>
+            <Gallery title={active.title} images={active.images} />
             <div className="p-6 md:p-8">
               <div className="flex items-start justify-between gap-4">
                 <div>
