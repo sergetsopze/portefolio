@@ -179,7 +179,7 @@ export const copy = {
             "Comptes, sudo, journalisation et sauvegardes",
           ],
           images: [
-            "https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?auto=format&fit=crop&w=1400&q=80",
+            "/projects/placeholder.svg",
           ],
         },
         {
@@ -194,7 +194,10 @@ export const copy = {
           result: "Visibilité centralisée, incidents traités et actions correctives documentées.",
           stack: ["Wazuh", "SIEM", "Logs", "Linux"],
           images: [
-            "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1400&q=80",
+            "/projects/wazuh/01.png",
+            "/projects/wazuh/02.png",
+            "/projects/wazuh/03.png",
+            "/projects/wazuh/04.png",
           ],
         },
         {
@@ -209,7 +212,9 @@ export const copy = {
           result: "Secrets centralisés, accès nominatifs et traçabilité des partages.",
           stack: ["Passbolt", "Linux", "IAM"],
           images: [
-            "https://images.unsplash.com/photo-1633265486064-086b219458ec?auto=format&fit=crop&w=1400&q=80",
+            "/projects/passbolt/01.png",
+            "/projects/passbolt/02.png",
+            "/projects/passbolt/03.png",
           ],
         },
         {
@@ -224,7 +229,7 @@ export const copy = {
           result: "Flux isolés, accès inter-VLAN maîtrisés, architecture documentée.",
           stack: ["VLAN L2/L3", "ACL", "Segmentation"],
           images: [
-            "https://images.unsplash.com/photo-1544197150-b99a41b6c09d?auto=format&fit=crop&w=1400&q=80",
+            "/projects/placeholder.svg",
           ],
         },
         {
@@ -239,7 +244,7 @@ export const copy = {
           result: "Parc VoIP opérationnel, tickets tracés, procédures à jour.",
           stack: ["VoIP", "ITSM", "SOP"],
           images: [
-            "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80",
+            "/projects/placeholder.svg",
           ],
         },
         {
@@ -254,7 +259,7 @@ export const copy = {
           result: "Annuaire structuré, accès nominatifs et revues de droits.",
           stack: ["Google Workspace", "IAM", "Active Directory"],
           images: [
-            "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1400&q=80",
+            "/projects/placeholder.svg",
           ],
         },
         {
@@ -269,7 +274,7 @@ export const copy = {
           result: "Cible : vault des comptes privilegiés et traçabilité des sessions admin.",
           stack: ["PAM", "Linux", "IAM"],
           images: [
-            "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80",
+            "/projects/placeholder.svg",
           ],
         },
         {
@@ -284,7 +289,7 @@ export const copy = {
           result: "Parc tracé, émargements centralisés, moins de tâches manuelles.",
           stack: ["Apps Script", "Python", "PowerShell", "Bash"],
           images: [
-            "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1400&q=80",
+            "/projects/placeholder.svg",
           ],
         },
       ],
@@ -565,7 +570,7 @@ export const copy = {
             "Accounts, sudo, logging and backups",
           ],
           images: [
-            "https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?auto=format&fit=crop&w=1400&q=80",
+            "/projects/placeholder.svg",
           ],
         },
         {
@@ -580,7 +585,10 @@ export const copy = {
           result: "Centralised visibility, handled incidents and documented corrective actions.",
           stack: ["Wazuh", "SIEM", "Logs", "Linux"],
           images: [
-            "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1400&q=80",
+            "/projects/wazuh/01.png",
+            "/projects/wazuh/02.png",
+            "/projects/wazuh/03.png",
+            "/projects/wazuh/04.png",
           ],
         },
         {
@@ -595,7 +603,9 @@ export const copy = {
           result: "Centralised secrets, named access and sharing traceability.",
           stack: ["Passbolt", "Linux", "IAM"],
           images: [
-            "https://images.unsplash.com/photo-1633265486064-086b219458ec?auto=format&fit=crop&w=1400&q=80",
+            "/projects/passbolt/01.png",
+            "/projects/passbolt/02.png",
+            "/projects/passbolt/03.png",
           ],
         },
         {
@@ -610,7 +620,7 @@ export const copy = {
           result: "Isolated flows, controlled inter-VLAN access, documented architecture.",
           stack: ["L2/L3 VLAN", "ACL", "Segmentation"],
           images: [
-            "https://images.unsplash.com/photo-1544197150-b99a41b6c09d?auto=format&fit=crop&w=1400&q=80",
+            "/projects/placeholder.svg",
           ],
         },
         {
@@ -625,7 +635,7 @@ export const copy = {
           result: "Working VoIP estate, traced tickets, up-to-date procedures.",
           stack: ["VoIP", "ITSM", "SOP"],
           images: [
-            "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80",
+            "/projects/placeholder.svg",
           ],
         },
         {
@@ -640,7 +650,7 @@ export const copy = {
           result: "Structured directory, named access and rights reviews.",
           stack: ["Google Workspace", "IAM", "Active Directory"],
           images: [
-            "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1400&q=80",
+            "/projects/placeholder.svg",
           ],
         },
         {
@@ -655,7 +665,7 @@ export const copy = {
           result: "Target: privileged-account vault and admin-session traceability.",
           stack: ["PAM", "Linux", "IAM"],
           images: [
-            "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80",
+            "/projects/placeholder.svg",
           ],
         },
         {
@@ -670,7 +680,7 @@ export const copy = {
           result: "Traced estate, centralised sign-offs, less manual work.",
           stack: ["Apps Script", "Python", "PowerShell", "Bash"],
           images: [
-            "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1400&q=80",
+            "/projects/placeholder.svg",
           ],
         },
       ],

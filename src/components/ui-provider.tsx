@@ -53,7 +53,7 @@ export function UiProvider({ children }: { children: ReactNode }) {
     () => ({
       locale,
       theme,
-      t: copy[locale],
+      t: copy[locale] ?? copy.fr,
       setLocale: setLocaleState,
       toggleLocale: () => setLocaleState((cur) => (cur === "fr" ? "en" : "fr")),
       toggleTheme: () => setTheme((cur) => (cur === "dark" ? "light" : "dark")),

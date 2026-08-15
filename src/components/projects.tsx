@@ -17,46 +17,99 @@ function Gallery({
   compact?: boolean;
 }) {
   const [index, setIndex] = useState(0);
-  const current = images[index] ?? images[0];
+  const [paused, setPaused] = useState(false);
+  const count = images.length;
+
+  useEffect(() => {
+    if (count < 2 || paused) return;
+    const timer = window.setInterval(() => {
+      setIndex((i) => (i + 1) % count);
+    }, 3500);
+    return () => window.clearInterval(timer);
+  }, [count, paused]);
+
+  if (!count) {
+    return (
+      <div className="flex aspect-[16/9] items-center justify-center bg-ink/10 text-sm text-white/70">
+        Screenshots
+      </div>
+    );
+  }
 
   return (
     <div
       className={`relative overflow-hidden bg-ink/10 ${
         compact ? "aspect-[16/9]" : "aspect-[16/9] md:aspect-[16/8]"
       }`}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
     >
-      {current ? (
-        <Image
-          src={current}
-          alt={`${title} ${index + 1}`}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-          sizes={compact ? "(max-width: 768px) 100vw, 33vw" : "90vw"}
-        />
-      ) : (
-        <div className="flex h-full items-center justify-center text-sm text-white/70">
-          Screenshots
-        </div>
-      )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-      {!compact && images.length > 1 ? (
+      <div
+        className="flex h-full transition-transform duration-700 ease-out"
+        style={{ transform: `translateX(-${index * 100}%)` }}
+      >
+        {images.map((src, i) => {
+          const isSvg = src.endsWith(".svg");
+          return (
+            <div key={src} className="relative h-full w-full shrink-0">
+              {isSvg ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={src} alt={`${title} ${i + 1}`} className="h-full w-full object-cover" />
+              ) : (
+                <Image
+                  src={src}
+                  alt={`${title} ${i + 1}`}
+                  fill
+                  className="object-cover object-top"
+                  sizes={compact ? "(max-width: 768px) 100vw, 33vw" : "90vw"}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+
+      {count > 1 ? (
         <>
           <button
             type="button"
             aria-label="Image précédente"
-            onClick={() => setIndex((i) => (i - 1 + images.length) % images.length)}
-            className="absolute top-1/2 left-3 -translate-y-1/2 bg-black/45 px-2 py-1 text-white"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIndex((i) => (i - 1 + count) % count);
+            }}
+            className="absolute top-1/2 left-2 z-10 -translate-y-1/2 bg-black/45 px-2 py-1 text-sm text-white opacity-0 transition-opacity group-hover:opacity-100"
           >
             ‹
           </button>
           <button
             type="button"
             aria-label="Image suivante"
-            onClick={() => setIndex((i) => (i + 1) % images.length)}
-            className="absolute top-1/2 right-3 -translate-y-1/2 bg-black/45 px-2 py-1 text-white"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIndex((i) => (i + 1) % count);
+            }}
+            className="absolute top-1/2 right-2 z-10 -translate-y-1/2 bg-black/45 px-2 py-1 text-sm text-white opacity-0 transition-opacity group-hover:opacity-100"
           >
             ›
           </button>
+          <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
+            {images.map((src, i) => (
+              <button
+                key={src}
+                type="button"
+                aria-label={`Image ${i + 1}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIndex(i);
+                }}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === index ? "w-4 bg-white" : "w-1.5 bg-white/45"
+                }`}
+              />
+            ))}
+          </div>
         </>
       ) : null}
     </div>
@@ -123,10 +176,17 @@ export function Projects() {
         <ul className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {visible.map((project) => (
             <li key={project.id}>
-              <button
-                type="button"
+              <article
+                className="group flex h-full w-full cursor-pointer flex-col overflow-hidden border border-line bg-card text-left transition-all hover:-translate-y-1 hover:border-blue/50 hover:shadow-[0_12px_30px_rgba(15,23,42,0.12)]"
                 onClick={() => setActiveId(project.id)}
-                className="group flex h-full w-full flex-col overflow-hidden border border-line bg-card text-left transition-all hover:-translate-y-1 hover:border-blue/50 hover:shadow-[0_12px_30px_rgba(15,23,42,0.12)]"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setActiveId(project.id);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
               >
                 <Gallery title={project.title} images={project.images} compact />
                 <div className="flex flex-1 flex-col p-4">
@@ -153,7 +213,7 @@ export function Projects() {
                     {t.projects.openDetail} →
                   </span>
                 </div>
-              </button>
+              </article>
             </li>
           ))}
         </ul>
@@ -172,7 +232,9 @@ export function Projects() {
             className="max-h-[92vh] w-full max-w-3xl overflow-y-auto bg-card text-ink shadow-2xl sm:rounded-lg"
             onClick={(e) => e.stopPropagation()}
           >
-            <Gallery title={active.title} images={active.images} />
+            <div className="group">
+              <Gallery title={active.title} images={active.images} />
+            </div>
             <div className="p-6 md:p-8">
               <div className="flex items-start justify-between gap-4">
                 <div>
