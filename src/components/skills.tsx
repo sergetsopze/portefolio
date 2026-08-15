@@ -1,48 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { useUi } from "@/components/ui-provider";
-
-function SkillBars({
-  bars,
-}: {
-  bars: readonly { label: string; value: number }[];
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) setShow(true);
-      },
-      { threshold: 0.3 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={ref} className="mt-14 space-y-5">
-      {bars.map((bar) => (
-        <div key={bar.label}>
-          <div className="mb-2 flex items-center justify-between text-sm">
-            <span className="text-ink">{bar.label}</span>
-            <span className="text-blue">{bar.value}%</span>
-          </div>
-          <div className="h-1.5 overflow-hidden bg-line">
-            <div
-              className={`h-full bg-blue ${show ? "bar-fill" : "scale-x-0"}`}
-              style={{ width: `${bar.value}%` }}
-            />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 export function Skills() {
   const { t } = useUi();
@@ -90,8 +48,6 @@ export function Skills() {
             </article>
           ))}
         </div>
-
-        <SkillBars bars={skills.bars} />
       </div>
     </section>
   );

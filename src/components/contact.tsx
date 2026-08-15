@@ -103,6 +103,18 @@ export function Contact() {
               </p>
               <p className="mt-2 text-xl">{c.location}</p>
             </div>
+            <div>
+              <p className="text-xs tracking-[0.16em] text-white/50 uppercase">
+                {c.document}
+              </p>
+              <a
+                href={site.cv}
+                download
+                className="mt-2 inline-block text-xl underline decoration-blue-soft decoration-2 underline-offset-8"
+              >
+                {c.cv}
+              </a>
+            </div>
             <div className="flex flex-wrap gap-6 text-sm font-medium tracking-wide uppercase">
               <a href={site.links.linkedin} target="_blank" rel="noopener noreferrer">
                 LinkedIn

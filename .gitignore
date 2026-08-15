@@ -46,6 +46,7 @@ next-env.d.ts
 
 # CV / docs locaux (ne pas publier)
 *.pdf
+!public/cv.pdf
 *.docx
 *.doc
 _cv*

@@ -18,7 +18,8 @@ const marquee = [
   "Bash",
   "Cisco",
   "EBIOS",
-  "Support N2/N3",
+  "IAM",
+  "Passbolt",
 ];
 
 export function Hero() {
@@ -63,6 +64,13 @@ export function Hero() {
               className="border border-white/35 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
             >
               {t.ctaContact}
+            </a>
+            <a
+              href={site.cv}
+              download
+              className="border border-blue-soft/60 bg-blue/20 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue/35"
+            >
+              {t.downloadCv}
             </a>
           </div>
         </div>

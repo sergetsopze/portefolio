@@ -1,5 +1,6 @@
 "use client";
 
+import { site } from "@/data/site";
 import { useUi } from "@/components/ui-provider";
 
 export function Certifications() {
@@ -40,6 +41,14 @@ export function Certifications() {
             </li>
           ))}
         </ul>
+
+        <a
+          href={site.cv}
+          download
+          className="mt-10 inline-flex bg-blue px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-deep"
+        >
+          {t.downloadCv}
+        </a>
       </div>
     </section>
   );
