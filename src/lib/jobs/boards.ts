@@ -1,3 +1,4 @@
+import { TARGET_COMPANIES } from "./companies";
 import type { ExternalBoardLink, JobSearchQuery } from "./types";
 
 function encode(value: string) {
@@ -91,5 +92,11 @@ export function externalBoardLinks(query: JobSearchQuery): ExternalBoardLink[] {
       url: `https://www.cadremploi.fr/emploi/recherche?motcle=${q}`,
       note: "Offres cadres, utile en complément de l’APEC",
     },
+    ...TARGET_COMPANIES.map((company) => ({
+      id: `career-${company.id}`,
+      label: company.name,
+      url: company.careerUrl,
+      note: "Site carrière de l’entreprise",
+    })),
   ];
 }

@@ -14,6 +14,7 @@ export type JobSourceId =
   | "la-bonne-alternance"
   | "jooble"
   | "jsearch"
+  | "careers"
   | "remotive"
   | "arbeitnow"
   | "manual";

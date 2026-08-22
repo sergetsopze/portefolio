@@ -1,6 +1,8 @@
 import { NextRequest } from "next/server";
 import { parseSearchQuery, searchJobs } from "@/lib/jobs/search";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const query = parseSearchQuery({

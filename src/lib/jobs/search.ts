@@ -1,6 +1,7 @@
 import { externalBoardLinks } from "./boards";
 import { dedupeOffers } from "./normalize";
 import { adzunaSource } from "./sources/adzuna";
+import { careersSource } from "./sources/careers";
 import { franceTravailSource } from "./sources/france-travail";
 import { jsearchSource } from "./sources/jsearch";
 import { joobleSource } from "./sources/jooble";
@@ -16,6 +17,7 @@ import type {
 
 const SOURCES: SourceAdapter[] = [
   franceTravailSource,
+  careersSource,
   laBonneAlternanceSource,
   joobleSource,
   jsearchSource,

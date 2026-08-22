@@ -45,6 +45,14 @@ export function GET() {
           "https://labonnealternance.apprentissage.beta.gouv.fr/espace-developpeurs",
         hint: "Indique ton e-mail dans LBA_CALLER_EMAIL. Idéal pour l’alternance (HelloWork, Meteojob, France Travail…).",
       },
+      {
+        id: "careers",
+        label: "Sites carrière entreprises",
+        ready: true,
+        required: false,
+        setupUrl: "",
+        hint: "Crédit Agricole, Orange, Airbus, Air France en direct. Les autres (BNP, SG, SNCF, ENEDIS…) via France Travail + lien vers leur site.",
+      },
     ],
     telegram: Boolean(
       process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID,

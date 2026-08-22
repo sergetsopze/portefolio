@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { TARGET_COMPANIES } from "@/lib/jobs/companies";
 import { jobProfile } from "@/lib/jobs/profile";
 import type { JobOffer, JobSearchResponse, SourceReport } from "@/lib/jobs/types";
 
@@ -106,7 +107,9 @@ export function JobsBoard() {
       <p className="mt-2 text-sm leading-relaxed text-slate-600">
         Offres récentes pour un poste d’
         <strong>{jobProfile.title}</strong> — support N2/N3, Windows/Linux,
-        RSSI. Tu les lis ici, ou tu les reçois sur Telegram.
+        RSSI. CA, Orange, Airbus et Air France viennent de leurs sites
+        carrière. BNP, SG, SNCF, ENEDIS et les autres passent par France
+        Travail, plus un lien direct vers leur site.
       </p>
 
       <form
@@ -209,6 +212,23 @@ export function JobsBoard() {
             .join(" · ")}
         </p>
       ) : null}
+
+      <div className="mt-4">
+        <p className="text-xs font-medium text-slate-500">Sites carrière</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {TARGET_COMPANIES.map((company) => (
+            <a
+              key={company.id}
+              href={company.careerUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-white px-3 py-1 text-xs text-slate-600 ring-1 ring-slate-200 hover:text-blue-700"
+            >
+              {company.name}
+            </a>
+          ))}
+        </div>
+      </div>
 
       <ul className="mt-4 space-y-3">
         {loading && !offers.length

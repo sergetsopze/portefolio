@@ -5,7 +5,7 @@ export const site = {
   phone: "+33 7 53 81 59 05",
   phoneHref: "+33753815905",
   portrait: "/portrait.png",
-  cv: "/cv.pdf",
+  cv: "/cv.pdf?v=20260819",
   links: {
     linkedin: "https://www.linkedin.com/in/sergetsopze",
     github: "https://github.com/sergetsopze",
@@ -29,6 +29,7 @@ export type ProjectCategory =
   | "all"
   | "cyber"
   | "sysnet"
+  | "scripting"
   | "web"
   | "cloud";
 
@@ -65,6 +66,11 @@ const projectImages = {
     "/projects/outils-internes/01.jpg",
     "/projects/outils-internes/02.jpg",
   ],
+  robotique: [
+    "/projects/robotique/robot2.jpg",
+    "/projects/robotique/cover.jpg",
+  ],
+  alexConsulting: ["/projects/alex-consulting/01.jpg"],
 } as const;
 
 export const copy = {
@@ -105,7 +111,7 @@ export const copy = {
       factsTitle: "Fiche rapide",
       facts: [
         { label: "Rôle", value: "Administrateur Systèmes & Réseaux" },
-        { label: "Diplôme en cours", value: "Master I Cybersécurité — Hexagone" },
+        { label: "Diplôme en cours", value: "Master I Cybersécurité & Cyberdéfense" },
         { label: "École", value: "École Hexagone · Versailles" },
         { label: "Basé à", value: "Clamart (92) · Mobile France" },
         { label: "Langues", value: "Français C1 · Anglais B2" },
@@ -127,7 +133,7 @@ export const copy = {
         {
           title: "Master I — Cybersécurité et Cyberdéfense",
           school: "École Hexagone · Versailles",
-          period: "2025 – 2026",
+          period: "2025 – 2027",
           details:
             "Sécurité réseau, OS, Endpoint, Forensic, Audit technique, Sécurité Cloud, SMSI, ISO 270XX, EBIOS.",
           tags: ["Réseau & OS", "Cloud", "EBIOS"],
@@ -151,10 +157,10 @@ export const copy = {
       ],
       jobs: [
         {
-          title: "Stagiaire — Administration systèmes & réseaux",
+          title: "Administrateur système, réseau et sécurité (en alternance)",
           org: "IFFP · Nanterre Préfecture",
-          kind: "Stage",
-          period: "Novembre 2025 – Avril 2026",
+          kind: "Alternance",
+          period: "Janvier – Août 2026",
           bullets: [
             "MCO d’un parc hybride (Windows, Linux, VoIP) et support N2/N3 (physique et PMAD).",
             "Identités et droits (AD, Google Workspace), durcissement serveurs et patch management.",
@@ -185,12 +191,14 @@ export const copy = {
       roleLabel: "Rôle",
       resultLabel: "Résultat",
       stepsLabel: "Étapes",
+      linkLabel: "Voir le projet",
       filters: [
         { id: "all", label: "Tous" },
         { id: "cyber", label: "Cybersécurité" },
         { id: "sysnet", label: "Systèmes & réseaux" },
         { id: "cloud", label: "Cloud, IAM & PAM" },
-        { id: "web", label: "Outils & automatisation" },
+        { id: "scripting", label: "Scripting & automatisation" },
+        { id: "web", label: "Développement web" },
       ],
       items: [
         {
@@ -295,7 +303,7 @@ export const copy = {
         },
         {
           id: "outils-internes",
-          category: "web" as const,
+          category: "scripting" as const,
           status: "Terminé",
           title: "Outils internes et automatisation",
           summary: "Inventaire, emprunts, émargement et scripts",
@@ -305,6 +313,37 @@ export const copy = {
           result: "Parc tracé, émargements centralisés, moins de tâches manuelles.",
           stack: ["Apps Script", "Python", "PowerShell", "Bash"],
           images: projectImages.outilsInternes,
+        },
+        {
+          id: "robotique",
+          category: "scripting" as const,
+          status: "Terminé",
+          title: "Cellule robotique Niryo — tri intelligent et coordination",
+          summary: "Projet d’équipe : vision, MQTT et démo ministérielle au CESI",
+          description:
+            "Projet mené en équipe au CESI : bras Niryo Ned², vision (Python, OpenCV) et tri par forme/couleur, avec coordination multi-robots via MQTT. Répartition des tâches, intégration et démo commune, présentée lors de la visite de la ministre du Travail et de l’Emploi.",
+          role: "Développement robotique en équipe",
+          result: "Démo live d’équipe devant la ministre et les partenaires, relais LinkedIn.",
+          stack: ["Python", "OpenCV", "Niryo Ned²", "MQTT", "Travail d’équipe"],
+          href: "https://lnkd.in/p/eZAeuNmn",
+          linkLabel: "Publication LinkedIn — visite de la ministre",
+          video: "/projects/robotique/demo.mp4",
+          images: projectImages.robotique,
+        },
+        {
+          id: "alex-consulting",
+          category: "web" as const,
+          status: "Terminé",
+          title: "Alex Consulting — site vitrine multiservices",
+          summary: "Démarches, logements et événements, convertis via WhatsApp",
+          description:
+            "Site public pour centraliser les demandes : démarches administratives, logements meublés, événements et excursions. Parcours simple, packs d’offres et devis, avec conversion sur WhatsApp. Projet web mené de bout en bout et déployé en production.",
+          role: "Conception & développement web",
+          result: "Site en ligne, parcours clair, demandes orientées vers WhatsApp.",
+          stack: ["Next.js", "React", "Tailwind", "Vercel"],
+          href: "https://alex-consulting.vercel.app",
+          linkLabel: "Ouvrir le site Alex Consulting",
+          images: projectImages.alexConsulting,
         },
       ],
     },
@@ -475,7 +514,7 @@ export const copy = {
       factsTitle: "Quick facts",
       facts: [
         { label: "Role", value: "Systems & Network Administrator" },
-        { label: "Current degree", value: "M1 Cybersecurity — Hexagone" },
+        { label: "Current degree", value: "M1 Cybersecurity & Cyberdefence" },
         { label: "School", value: "École Hexagone · Versailles" },
         { label: "Based in", value: "Clamart (92) · Mobile across France" },
         { label: "Languages", value: "French C1 · English B2" },
@@ -497,7 +536,7 @@ export const copy = {
         {
           title: "Master’s Year 1 — Cybersecurity and Cyberdefence",
           school: "École Hexagone · Versailles",
-          period: "2025 – 2026",
+          period: "2025 – 2027",
           details:
             "Network security, OS, endpoint, forensics, technical audit, cloud security, ISMS, ISO 270XX, EBIOS.",
           tags: ["Network & OS", "Cloud", "EBIOS"],
@@ -521,10 +560,10 @@ export const copy = {
       ],
       jobs: [
         {
-          title: "Intern — Systems & network administration",
+          title: "Systems, network and security administrator (apprenticeship)",
           org: "IFFP · Nanterre",
-          kind: "Internship",
-          period: "November 2025 – April 2026",
+          kind: "Apprenticeship",
+          period: "January – August 2026",
           bullets: [
             "Run operations on a hybrid estate (Windows, Linux, VoIP) and N2/N3 support (on-site and remote).",
             "Identity and access (AD, Google Workspace), server hardening and patch management.",
@@ -555,12 +594,14 @@ export const copy = {
       roleLabel: "Role",
       resultLabel: "Outcome",
       stepsLabel: "Steps",
+      linkLabel: "Open project",
       filters: [
         { id: "all", label: "All" },
         { id: "cyber", label: "Cybersecurity" },
         { id: "sysnet", label: "Systems & networks" },
         { id: "cloud", label: "Cloud, IAM & PAM" },
-        { id: "web", label: "Tools & automation" },
+        { id: "scripting", label: "Scripting and automation" },
+        { id: "web", label: "Web development" },
       ],
       items: [
         {
@@ -665,7 +706,7 @@ export const copy = {
         },
         {
           id: "outils-internes",
-          category: "web" as const,
+          category: "scripting" as const,
           status: "Completed",
           title: "Internal tools and automation",
           summary: "Inventory, loans, sign-off and scripts",
@@ -675,6 +716,37 @@ export const copy = {
           result: "Traced estate, centralised sign-offs, less manual work.",
           stack: ["Apps Script", "Python", "PowerShell", "Bash"],
           images: projectImages.outilsInternes,
+        },
+        {
+          id: "robotique",
+          category: "scripting" as const,
+          status: "Completed",
+          title: "Niryo robotics cell — smart sorting and coordination",
+          summary: "Team project: vision, MQTT and a ministerial demo at CESI",
+          description:
+            "Team project at CESI: Niryo Ned² arms, computer vision (Python, OpenCV) and colour/shape sorting, with multi-robot coordination over MQTT. Shared tasks, joint integration and a common demo during the visit of the Minister for Labour and Employment.",
+          role: "Robotics development (team)",
+          result: "Live team demo in front of the minister and partners, LinkedIn coverage.",
+          stack: ["Python", "OpenCV", "Niryo Ned²", "MQTT", "Teamwork"],
+          href: "https://lnkd.in/p/eZAeuNmn",
+          linkLabel: "LinkedIn post — ministerial visit",
+          video: "/projects/robotique/demo.mp4",
+          images: projectImages.robotique,
+        },
+        {
+          id: "alex-consulting",
+          category: "web" as const,
+          status: "Completed",
+          title: "Alex Consulting — multi-service showcase site",
+          summary: "Admin paperwork, housing and events, converted via WhatsApp",
+          description:
+            "Public website to centralise requests: administrative procedures, furnished housing, events and excursions. Simple journey, offer packs and quotes, with conversion on WhatsApp. End-to-end web project shipped to production.",
+          role: "Web design & development",
+          result: "Live site, clear journey, enquiries routed to WhatsApp.",
+          stack: ["Next.js", "React", "Tailwind", "Vercel"],
+          href: "https://alex-consulting.vercel.app",
+          linkLabel: "Open the Alex Consulting site",
+          images: projectImages.alexConsulting,
         },
       ],
     },

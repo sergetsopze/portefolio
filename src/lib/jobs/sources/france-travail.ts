@@ -1,4 +1,6 @@
+import { TARGET_COMPANIES } from "../companies";
 import { resolveLocation } from "../location";
+import { matchesSysadminProfile } from "../match";
 import { makeJobId, snippet, withTimeout } from "../normalize";
 import type { JobOffer, JobSearchQuery, SourceAdapter } from "../types";
 
@@ -53,6 +55,7 @@ async function getAccessToken(clientId: string, clientSecret: string) {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body,
+    cache: "no-store",
     signal: withTimeout(10_000),
   });
 
@@ -110,13 +113,22 @@ function mapOffer(item: FranceTravailOffer): JobOffer | null {
   };
 }
 
+type SearchOnceOptions = {
+  natureContrat?: string;
+  keywords?: string;
+  rome?: string;
+  range?: string;
+};
+
 async function searchOnce(
   token: string,
   query: JobSearchQuery,
-  natureContrat?: string,
+  options: SearchOnceOptions = {},
 ) {
   const params = new URLSearchParams();
-  if (query.keywords.trim()) params.set("motsCles", query.keywords.trim());
+  const keywords = (options.keywords ?? query.keywords).trim();
+  if (keywords) params.set("motsCles", keywords);
+  if (options.rome) params.set("rome", options.rome);
   params.set("sort", "1");
   params.set("publieeDepuis", String(query.sinceDays));
 
@@ -125,14 +137,15 @@ async function searchOnce(
 
   const type = typeContrat(query.contract);
   if (type) params.set("typeContrat", type);
-  if (natureContrat) params.set("natureContrat", natureContrat);
+  if (options.natureContrat) params.set("natureContrat", options.natureContrat);
 
   const response = await fetch(`${SEARCH_URL}?${params.toString()}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: "application/json",
-      Range: "0-49",
+      Range: options.range ?? "0-99",
     },
+    cache: "no-store",
     signal: withTimeout(12_000),
   });
 
@@ -162,10 +175,63 @@ export const franceTravailSource: SourceAdapter = {
     try {
       const token = await getAccessToken(clientId, clientSecret);
       const natures = natureContrats(query.contract);
-      const batches = natures.length
-        ? await Promise.all(natures.map((code) => searchOnce(token, query, code)))
-        : [await searchOnce(token, query)];
+      const tasks: Array<Promise<JobOffer[]>> = [];
 
+      if (natures.length) {
+        for (const code of natures) {
+          tasks.push(searchOnce(token, query, { natureContrat: code }));
+          tasks.push(
+            searchOnce(token, query, {
+              natureContrat: code,
+              keywords: "",
+              rome: "M1801,M1802,I1401",
+            }),
+          );
+        }
+      } else {
+        tasks.push(searchOnce(token, query));
+        tasks.push(
+          searchOnce(token, query, {
+            keywords: "",
+            rome: "M1801,M1802,I1401",
+          }),
+        );
+      }
+
+      const extraKeywords = ["cybersécurité", "RSSI"].filter(
+        (term) => !query.keywords.toLowerCase().includes(term.toLowerCase()),
+      );
+      for (const keywords of extraKeywords) {
+        tasks.push(
+          searchOnce(token, query, {
+            natureContrat: natures[0] ?? undefined,
+            keywords,
+            range: "0-49",
+          }),
+        );
+      }
+
+      if (query.contract === "alternance" || query.contract === "all") {
+        for (const company of TARGET_COMPANIES) {
+          tasks.push(
+            searchOnce(token, query, {
+              natureContrat: natures[0] ?? "FA",
+              keywords: company.franceTravailQuery,
+              range: "0-49",
+            }).then((items) =>
+              items.filter((offer) =>
+                matchesSysadminProfile(
+                  `${offer.title} ${offer.description} ${offer.company}`,
+                ),
+              ),
+            ),
+          );
+        }
+      }
+
+      const batches = await Promise.all(
+        tasks.map((task) => task.catch(() => [] as JobOffer[])),
+      );
       const offers = batches.flat();
       return {
         offers,

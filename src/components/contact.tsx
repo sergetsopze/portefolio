@@ -109,7 +109,7 @@ export function Contact() {
               </p>
               <a
                 href={site.cv}
-                download
+                download="CV_Serge_TSOPZE.pdf"
                 className="mt-2 inline-block text-xl underline decoration-blue-soft decoration-2 underline-offset-8"
               >
                 {c.cv}

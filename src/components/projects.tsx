@@ -28,7 +28,7 @@ function Slide({
       src={src}
       alt={`${title} ${index + 1}`}
       fill
-      className="object-cover object-top"
+      className="object-cover object-center"
       sizes={compact ? "(max-width: 768px) 100vw, 33vw" : "90vw"}
     />
   );
@@ -37,14 +37,25 @@ function Slide({
 function Gallery({
   title,
   images,
+  video,
   compact = false,
 }: {
   title: string;
   images: readonly string[];
+  video?: string;
   compact?: boolean;
 }) {
+  const slides = useMemo(() => {
+    const items: { type: "image" | "video"; src: string }[] = images.map((src) => ({
+      type: "image",
+      src,
+    }));
+    if (video) items.push({ type: "video", src: video });
+    return items;
+  }, [images, video]);
   const [index, setIndex] = useState(0);
-  const count = images.length;
+  const count = slides.length;
+  const frame = compact ? "aspect-[16/9]" : "aspect-[16/9] md:aspect-[16/8]";
 
   useEffect(() => {
     if (compact || count < 2) return;
@@ -58,7 +69,7 @@ function Gallery({
 
   if (!count) {
     return (
-      <div className="flex aspect-[16/9] items-center justify-center bg-ink/10 text-sm text-white/70">
+      <div className={`flex ${frame} items-center justify-center bg-ink/10 text-sm text-white/70`}>
         Screenshots
       </div>
     );
@@ -66,57 +77,70 @@ function Gallery({
 
   if (compact) {
     return (
-      <div className="relative aspect-[16/9] overflow-hidden bg-ink/10">
-        <Slide src={images[0]} title={title} index={0} compact />
+      <div className={`relative overflow-hidden bg-ink/10 ${frame}`}>
+        <Slide src={slides[0].src} title={title} index={0} compact />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="relative aspect-[16/9] overflow-hidden bg-ink/10 md:aspect-[16/8]">
+    <div className={`relative overflow-hidden bg-ink ${frame}`}>
       <div
         className="flex h-full transition-transform duration-500 ease-out"
         style={{ transform: `translateX(-${index * 100}%)` }}
       >
-        {images.map((src, i) => (
-          <div key={src} className="relative h-full w-full shrink-0">
-            <Slide src={src} title={title} index={i} />
+        {slides.map((slide, i) => (
+          <div key={`${slide.type}-${slide.src}`} className="relative h-full w-full shrink-0 bg-ink">
+            {slide.type === "video" ? (
+              <video
+                src={slide.src}
+                title={title}
+                controls
+                playsInline
+                preload={i === index ? "metadata" : "none"}
+                className="h-full w-full object-contain"
+              />
+            ) : (
+              <>
+                <Slide src={slide.src} title={title} index={i} />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+              </>
+            )}
           </div>
         ))}
       </div>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
 
       {count > 1 ? (
         <>
           <button
             type="button"
-            aria-label="Image précédente"
+            aria-label="Média précédent"
             onClick={(e) => {
               e.stopPropagation();
               setIndex((i) => (i - 1 + count) % count);
             }}
-            className="absolute top-1/2 left-2 z-10 -translate-y-1/2 bg-black/45 px-2 py-1 text-sm text-white"
+            className="absolute top-1/2 left-2 z-10 -translate-y-1/2 bg-black/55 px-2.5 py-1 text-sm text-white"
           >
             ‹
           </button>
           <button
             type="button"
-            aria-label="Image suivante"
+            aria-label="Média suivant"
             onClick={(e) => {
               e.stopPropagation();
               setIndex((i) => (i + 1) % count);
             }}
-            className="absolute top-1/2 right-2 z-10 -translate-y-1/2 bg-black/45 px-2 py-1 text-sm text-white"
+            className="absolute top-1/2 right-2 z-10 -translate-y-1/2 bg-black/55 px-2.5 py-1 text-sm text-white"
           >
             ›
           </button>
-          <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
-            {images.map((src, i) => (
+          <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
+            {slides.map((slide, i) => (
               <button
-                key={src}
+                key={`${slide.type}-${slide.src}-dot`}
                 type="button"
-                aria-label={`Image ${i + 1}`}
+                aria-label={slide.type === "video" ? "Vidéo" : `Image ${i + 1}`}
                 onClick={(e) => {
                   e.stopPropagation();
                   setIndex(i);
@@ -249,7 +273,11 @@ export function Projects() {
             className="max-h-[92vh] w-full max-w-3xl overflow-y-auto bg-card text-ink shadow-2xl sm:rounded-lg"
             onClick={(e) => e.stopPropagation()}
           >
-            <Gallery title={active.title} images={active.images} />
+            <Gallery
+              title={active.title}
+              images={active.images}
+              video={"video" in active ? active.video : undefined}
+            />
             <div className="p-6 md:p-8">
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -274,6 +302,16 @@ export function Projects() {
               <p className="mt-4 text-base leading-relaxed text-ink-soft">
                 {active.description}
               </p>
+              {"href" in active && active.href ? (
+                <a
+                  href={active.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex text-sm font-semibold text-blue underline decoration-blue/40 underline-offset-4 hover:decoration-blue"
+                >
+                  {("linkLabel" in active && active.linkLabel) || t.projects.linkLabel} →
+                </a>
+              ) : null}
               <dl className="mt-6 grid gap-4 sm:grid-cols-2">
                 <div>
                   <dt className="text-xs tracking-wide text-ink-soft uppercase">

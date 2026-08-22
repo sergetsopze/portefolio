@@ -67,7 +67,7 @@ export function Hero() {
             </a>
             <a
               href={site.cv}
-              download
+              download="CV_Serge_TSOPZE.pdf"
               className="border border-blue-soft/60 bg-blue/20 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue/35"
             >
               {t.downloadCv}
@@ -83,8 +83,9 @@ export function Hero() {
                 alt={site.name}
                 fill
                 priority
-                className="object-cover object-top"
-                sizes="(max-width: 768px) 80vw, 380px"
+                quality={95}
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 80vw, 384px"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0b1220] via-[#0b1220]/70 to-transparent p-5">
                 <p className="font-[family-name:var(--font-syne)] text-lg font-semibold text-white">

@@ -44,7 +44,7 @@ export function Certifications() {
 
         <a
           href={site.cv}
-          download
+          download="CV_Serge_TSOPZE.pdf"
           className="mt-10 inline-flex bg-blue px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-deep"
         >
           {t.downloadCv}
