@@ -29,8 +29,8 @@ export type ProjectCategory =
   | "all"
   | "cyber"
   | "sysnet"
-  | "scripting"
-  | "web"
+  | "support"
+  | "autres"
   | "cloud";
 
 const projectImages = {
@@ -57,6 +57,10 @@ const projectImages = {
     "/projects/exploitation/01.jpg",
     "/projects/exploitation/02.jpg",
   ],
+  telephonieIp: ["/projects/telephonie-ip/01.jpg"],
+  videosurveillance: ["/projects/videosurveillance/01.jpg"],
+  postesTravail: ["/projects/postes-travail/01.jpg"],
+  assistance: ["/projects/assistance/01.jpg"],
   workspaceIam: [
     "/projects/workspace-iam/01.jpg",
     "/projects/workspace-iam/02.jpg",
@@ -185,7 +189,7 @@ export const copy = {
     projects: {
       kicker: "04  Mes projets",
       title: "Mes projets",
-      hint: "Cliquez sur un projet pour voir le détail.",
+      hint: "Les projets d’administration systèmes, réseaux et support sont mis en avant. Cliquez pour le détail.",
       openDetail: "Voir le détail",
       closeLabel: "Fermer",
       roleLabel: "Rôle",
@@ -194,13 +198,78 @@ export const copy = {
       linkLabel: "Voir le projet",
       filters: [
         { id: "all", label: "Tous" },
-        { id: "cyber", label: "Cybersécurité" },
         { id: "sysnet", label: "Systèmes & réseaux" },
+        { id: "support", label: "Support IT & exploitation" },
+        { id: "cyber", label: "Cybersécurité" },
         { id: "cloud", label: "Cloud, IAM & PAM" },
-        { id: "scripting", label: "Scripting & automatisation" },
-        { id: "web", label: "Développement web" },
+        { id: "autres", label: "Autres projets" },
       ],
       items: [
+        {
+          id: "archi-reseau",
+          category: "sysnet" as const,
+          status: "Terminé",
+          title: "Architecture réseau sécurisée",
+          summary: "VLAN, routage et configuration des équipements",
+          description:
+            "Étude de l’existant, conception d’une architecture plus sûre et création des VLAN (utilisateurs, Wi-Fi, serveurs, VoIP, management). Configuration des équipements réseau : routeur, switchs, points d’accès Aruba et filtrage Zyxel / MikroTik. Isolation des flux et règles de routage / ACL entre VLAN.",
+          role: "Conception & administration réseau",
+          result: "VLAN créés, équipements configurés, flux isolés et architecture documentée.",
+          stack: ["Switch", "MikroTik", "AP Aruba", "Zyxel", "VLAN L2/L3"],
+          images: projectImages.archiReseau,
+        },
+        {
+          id: "telephonie-ip",
+          category: "sysnet" as const,
+          status: "Terminé",
+          title: "Téléphonie IP",
+          summary: "Lignes, terminaux et suivi du parc VoIP",
+          description:
+            "Installation et approvisionnement des postes téléphoniques IP, configuration des terminaux, affectation des lignes et résolution des incidents.",
+          role: "Exploitation de la téléphonie IP",
+          result: "Continuité du service téléphonique et maintien des équipements en condition opérationnelle.",
+          stack: ["VoIP", "Provisioning", "Déploiement", "Configuration", "Maintenance"],
+          images: projectImages.telephonieIp,
+        },
+        {
+          id: "videosurveillance",
+          category: "sysnet" as const,
+          status: "Terminé",
+          title: "Vidéosurveillance",
+          summary: "Caméras IP, câblage et enregistrement centralisé",
+          description:
+            "Déploiement de caméras de vidéosurveillance sur site : câblage, configuration réseau et intégration au système d’enregistrement.",
+          role: "Infrastructure vidéosurveillance",
+          result: "Caméras opérationnelles, adressage IP configuré et enregistrement centralisé via NVR.",
+          stack: ["Déploiement", "Adressage IP", "DHCP", "NVR"],
+          images: projectImages.videosurveillance,
+        },
+        {
+          id: "postes-travail",
+          category: "support" as const,
+          status: "Terminé",
+          title: "Postes de travail",
+          summary: "Câblage, installation et maintenance du parc",
+          description:
+            "Câblage réseau, installation des nouveaux postes de travail et maintenance courante (matérielle et logicielle).",
+          role: "Installation & maintenance des postes",
+          result: "Nouveaux postes raccordés, parc maintenu matériel et logiciel.",
+          stack: ["Câblage", "Installation", "Maintenance", "Windows"],
+          images: projectImages.postesTravail,
+        },
+        {
+          id: "assistance",
+          category: "support" as const,
+          status: "Terminé",
+          title: "Assistance utilisateurs",
+          summary: "Support N1/N2/N3, tickets et procédures",
+          description:
+            "Support N1/N2/N3 aux utilisateurs (incidents matériels, logiciels et réseau), gestion des tickets, formation des collaborateurs à l’utilisation des solutions internes et rédaction des procédures.",
+          role: "Support N1/N2/N3",
+          result: "Tickets traités, collaborateurs accompagnés, procédures rédigées et support plus fiable.",
+          stack: ["Support N1/N2/N3", "Active Directory", "Windows 10/11", "ITSM", "Formation utilisateurs"],
+          images: projectImages.assistance,
+        },
         {
           id: "linux-hardening",
           category: "cyber" as const,
@@ -250,32 +319,6 @@ export const copy = {
           images: projectImages.passbolt,
         },
         {
-          id: "archi-reseau",
-          category: "sysnet" as const,
-          status: "Terminé",
-          title: "Architecture réseau sécurisée",
-          summary: "Étude, segmentation VLAN et règles d’accès",
-          description:
-            "Étude de l’existant, proposition d’une architecture plus sûre, isolation des flux (utilisateurs, Wi-Fi, serveurs, VoIP) et règles de routage / ACL entre VLAN.",
-          role: "Conception & administration réseau",
-          result: "Flux isolés, accès inter-VLAN maîtrisés, architecture documentée.",
-          stack: ["VLAN L2/L3", "ACL", "Segmentation"],
-          images: projectImages.archiReseau,
-        },
-        {
-          id: "exploitation",
-          category: "sysnet" as const,
-          status: "Terminé",
-          title: "Exploitation du SI — VoIP, tickets et documentation",
-          summary: "Téléphonie IP, MCO et suivi des projets IT",
-          description:
-            "Déploiement et maintenance des téléphones IP, gestion quotidienne des tickets d’exploitation, mise à jour des SOP et suivi des projets IT.",
-          role: "Exploitation & MCO",
-          result: "Parc VoIP opérationnel, tickets tracés, procédures à jour.",
-          stack: ["VoIP", "ITSM", "SOP"],
-          images: projectImages.exploitation,
-        },
-        {
           id: "workspace-iam",
           category: "cloud" as const,
           status: "Terminé",
@@ -303,7 +346,7 @@ export const copy = {
         },
         {
           id: "outils-internes",
-          category: "scripting" as const,
+          category: "autres" as const,
           status: "Terminé",
           title: "Outils internes et automatisation",
           summary: "Inventaire, emprunts, émargement et scripts",
@@ -316,7 +359,7 @@ export const copy = {
         },
         {
           id: "robotique",
-          category: "scripting" as const,
+          category: "autres" as const,
           status: "Terminé",
           title: "Cellule robotique Niryo — tri intelligent et coordination",
           summary: "Projet d’équipe : vision, MQTT et démo ministérielle au CESI",
@@ -332,7 +375,7 @@ export const copy = {
         },
         {
           id: "alex-consulting",
-          category: "web" as const,
+          category: "autres" as const,
           status: "Terminé",
           title: "Alex Consulting — site vitrine multiservices",
           summary: "Démarches, logements et événements, convertis via WhatsApp",
@@ -588,7 +631,7 @@ export const copy = {
     projects: {
       kicker: "04  My projects",
       title: "My projects",
-      hint: "Click a project to open the full write-up.",
+      hint: "Systems, networks and IT support come first. Click a project for the full write-up.",
       openDetail: "View details",
       closeLabel: "Close",
       roleLabel: "Role",
@@ -597,13 +640,78 @@ export const copy = {
       linkLabel: "Open project",
       filters: [
         { id: "all", label: "All" },
-        { id: "cyber", label: "Cybersecurity" },
         { id: "sysnet", label: "Systems & networks" },
+        { id: "support", label: "IT support & operations" },
+        { id: "cyber", label: "Cybersecurity" },
         { id: "cloud", label: "Cloud, IAM & PAM" },
-        { id: "scripting", label: "Scripting and automation" },
-        { id: "web", label: "Web development" },
+        { id: "autres", label: "Other projects" },
       ],
       items: [
+        {
+          id: "archi-reseau",
+          category: "sysnet" as const,
+          status: "Completed",
+          title: "Secure network architecture",
+          summary: "VLANs, routing and network-gear configuration",
+          description:
+            "Reviewed the existing network, designed a safer architecture and created VLANs (users, Wi-Fi, servers, VoIP, management). Configured network equipment: router, switches, Aruba access points and Zyxel / MikroTik filtering. Isolated traffic with inter-VLAN routing and ACLs.",
+          role: "Network design & administration",
+          result: "VLANs created, equipment configured, isolated flows and a documented architecture.",
+          stack: ["Switch", "MikroTik", "Aruba AP", "Zyxel", "L2/L3 VLAN"],
+          images: projectImages.archiReseau,
+        },
+        {
+          id: "telephonie-ip",
+          category: "sysnet" as const,
+          status: "Completed",
+          title: "IP telephony",
+          summary: "Lines, handsets and VoIP estate follow-up",
+          description:
+            "Installation and provisioning of IP phones, handset configuration, line assignment and incident resolution.",
+          role: "IP telephony operations",
+          result: "Telephone service continuity and equipment kept in operational condition.",
+          stack: ["VoIP", "Provisioning", "Deployment", "Configuration", "Maintenance"],
+          images: projectImages.telephonieIp,
+        },
+        {
+          id: "videosurveillance",
+          category: "sysnet" as const,
+          status: "Completed",
+          title: "Video surveillance",
+          summary: "IP cameras, cabling and centralised recording",
+          description:
+            "On-site CCTV camera rollout: cabling, network configuration and integration into the recording system.",
+          role: "Video-surveillance infrastructure",
+          result: "Cameras operational, IP addressing configured and centralised recording via NVR.",
+          stack: ["Deployment", "IP addressing", "DHCP", "NVR"],
+          images: projectImages.videosurveillance,
+        },
+        {
+          id: "postes-travail",
+          category: "support" as const,
+          status: "Completed",
+          title: "Workstations",
+          summary: "Cabling, installs and day-to-day maintenance",
+          description:
+            "Network cabling, installation of new workstations and routine hardware and software maintenance.",
+          role: "Workstation install & maintenance",
+          result: "New PCs connected, hardware and software estate kept running.",
+          stack: ["Cabling", "Installation", "Maintenance", "Windows"],
+          images: projectImages.postesTravail,
+        },
+        {
+          id: "assistance",
+          category: "support" as const,
+          status: "Completed",
+          title: "User support",
+          summary: "N1/N2/N3 support, tickets and procedures",
+          description:
+            "N1/N2/N3 user support (hardware, software and network incidents), ticket handling, training colleagues on internal tools and writing procedures.",
+          role: "N1/N2/N3 support",
+          result: "Tickets handled, colleagues supported, procedures written and more reliable support.",
+          stack: ["N1/N2/N3 support", "Active Directory", "Windows 10/11", "ITSM", "User training"],
+          images: projectImages.assistance,
+        },
         {
           id: "linux-hardening",
           category: "cyber" as const,
@@ -653,32 +761,6 @@ export const copy = {
           images: projectImages.passbolt,
         },
         {
-          id: "archi-reseau",
-          category: "sysnet" as const,
-          status: "Completed",
-          title: "Secure network architecture",
-          summary: "As-is review, VLAN segmentation and access rules",
-          description:
-            "Reviewed the existing network, proposed a safer design, isolated user / Wi-Fi / server / VoIP traffic and applied inter-VLAN routing and ACLs.",
-          role: "Network design & administration",
-          result: "Isolated flows, controlled inter-VLAN access, documented architecture.",
-          stack: ["L2/L3 VLAN", "ACL", "Segmentation"],
-          images: projectImages.archiReseau,
-        },
-        {
-          id: "exploitation",
-          category: "sysnet" as const,
-          status: "Completed",
-          title: "IT operations — VoIP, tickets and documentation",
-          summary: "IP telephony, run work and IT project follow-up",
-          description:
-            "Deployed and maintained IP phones, handled daily operations tickets, updated SOPs and tracked IT projects.",
-          role: "Operations / run",
-          result: "Working VoIP estate, traced tickets, up-to-date procedures.",
-          stack: ["VoIP", "ITSM", "SOP"],
-          images: projectImages.exploitation,
-        },
-        {
           id: "workspace-iam",
           category: "cloud" as const,
           status: "Completed",
@@ -706,7 +788,7 @@ export const copy = {
         },
         {
           id: "outils-internes",
-          category: "scripting" as const,
+          category: "autres" as const,
           status: "Completed",
           title: "Internal tools and automation",
           summary: "Inventory, loans, sign-off and scripts",
@@ -719,7 +801,7 @@ export const copy = {
         },
         {
           id: "robotique",
-          category: "scripting" as const,
+          category: "autres" as const,
           status: "Completed",
           title: "Niryo robotics cell — smart sorting and coordination",
           summary: "Team project: vision, MQTT and a ministerial demo at CESI",
@@ -735,7 +817,7 @@ export const copy = {
         },
         {
           id: "alex-consulting",
-          category: "web" as const,
+          category: "autres" as const,
           status: "Completed",
           title: "Alex Consulting — multi-service showcase site",
           summary: "Admin paperwork, housing and events, converted via WhatsApp",
