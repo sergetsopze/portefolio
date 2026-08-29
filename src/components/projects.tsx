@@ -23,13 +23,14 @@ function Slide({
     // eslint-disable-next-line @next/next/no-img-element
     return <img src={src} alt={`${title} ${index + 1}`} className="h-full w-full object-cover" />;
   }
+  const objectPos = src.includes("03-auth-google") ? "object-top" : "object-center";
   return (
     <Image
       key={src}
       src={src}
       alt={`${title} ${index + 1}`}
       fill
-      className="object-cover object-center"
+      className={`object-cover ${objectPos}`}
       sizes={compact ? "(max-width: 768px) 100vw, 33vw" : "90vw"}
     />
   );

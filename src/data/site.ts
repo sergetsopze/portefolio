@@ -61,9 +61,11 @@ const projectImages = {
   videosurveillance: ["/projects/videosurveillance/01.jpg"],
   postesTravail: ["/projects/postes-travail/01.jpg"],
   assistance: ["/projects/assistance/support-it.jpg"],
-  workspaceIam: [
-    "/projects/workspace-iam/01.jpg",
-    "/projects/workspace-iam/02.jpg",
+  workspaceIam: ["/projects/workspace-iam/interface-admin.png"],
+  ssoCloud: [
+    "/projects/sso-cloud/01-console.png",
+    "/projects/sso-cloud/02-sso.png",
+    "/projects/sso-cloud/03-auth-google.png",
   ],
   pam: [
     "/projects/pam/01-portail.png",
@@ -184,12 +186,12 @@ export const copy = {
           kind: "Alternance",
           period: "Janvier – Août 2026",
           bullets: [
-            "MCO d’un parc hybride (Windows, Linux, VoIP) et support N2/N3 (physique et PMAD).",
-            "Identités et droits (AD, Google Workspace), durcissement serveurs et patch management.",
-            "VLAN L2/L3, isolation Wi-Fi, règles de pare-feu, audits Nmap.",
-            "Déploiement Wazuh (SIEM), SOP support N1/N2 et outils d’inventaire.",
+            "Maintien en condition opérationnelle d’un parc hybride (Windows, Linux, VoIP) et support N1-N3 (physique et à distance).",
+            "Gouvernance des identités et des accès : Active Directory, administration Google Workspace (moindre privilège, offboarding), déploiement d’authentification SSO/OAuth pour applications web.",
+            "Durcissement serveurs, patch management, VLAN L2/L3, segmentation réseau, règles de pare-feu, audits Nmap.",
+            "Déploiement Wazuh (SIEM), SOP et documentation technique.",
           ],
-          tags: ["AD", "VLAN", "Wazuh", "MCO"],
+          tags: ["AD", "Google Workspace", "SSO", "VLAN", "Wazuh", "MCO"],
         },
         {
           title: "Stagiaire — Robotique & automatisation",
@@ -233,7 +235,7 @@ export const copy = {
             "Étude de l’existant, conception d’une architecture plus sûre et création des VLAN (utilisateurs, Wi-Fi, serveurs, VoIP, management). Configuration des équipements réseau : routeur, switchs, points d’accès Aruba et filtrage Zyxel / MikroTik. Isolation des flux et règles de routage / ACL entre VLAN.",
           role: "Conception & administration réseau",
           result: "VLAN créés, équipements configurés, flux isolés et architecture documentée.",
-          stack: ["Switch", "MikroTik", "AP Aruba", "Zyxel", "VLAN L2/L3"],
+          stack: ["Switch", "MikroTik", "Draw.io", "Zyxel", "VLAN L2/L3"],
           images: projectImages.archiReseau,
         },
         {
@@ -279,13 +281,20 @@ export const copy = {
           id: "assistance",
           category: "support" as const,
           status: "Terminé",
-          title: "Assistance utilisateurs",
-          summary: "Support N1/N2/N3, tickets et procédures",
+          title: "Documentation & supports opérationnels",
+          summary: "Support N1/N2/N3, tickets, formation et documentation",
           description:
-            "Support N1/N2/N3 aux utilisateurs (incidents matériels, logiciels et réseau), gestion des tickets, formation des collaborateurs à l’utilisation des solutions internes et rédaction des procédures.",
-          role: "Support N1/N2/N3",
-          result: "Tickets traités, collaborateurs accompagnés, procédures rédigées et support plus fiable.",
-          stack: ["Support N1/N2/N3", "Active Directory", "Windows 10/11", "ITSM", "Formation utilisateurs"],
+            "Prise en charge du support utilisateurs de niveaux N1 à N3 (incidents matériels, logiciels et réseau) avec gestion des tickets, accompagnement et formation des collaborateurs à l’utilisation des solutions internes. Production de documentation technique et de guides utilisateurs (Google Docs, Sheets, Slides, NotebookLM) à l’appui des procédures d’exploitation.",
+          role: "Support IT / Documentation",
+          result:
+            "Un support réactif et une documentation vivante, garantissant la continuité de service et facilitant la montée en compétences des équipes.",
+          stack: [
+            "Support N1/N2/N3",
+            "Google (Docs, Sheets, Slides)",
+            "NotebookLM",
+            "ITSM",
+            "Documentation technique",
+          ],
           images: projectImages.assistance,
         },
         {
@@ -340,14 +349,29 @@ export const copy = {
           id: "workspace-iam",
           category: "cloud" as const,
           status: "Terminé",
-          title: "Google Workspace & gestion des identités (IAM)",
-          summary: "Annuaire cloud, droits et cycle de vie des comptes",
+          title: "Google Workspace : gouvernance des comptes & des accès",
+          summary: "Cycle de vie des comptes, Drive et offboarding",
           description:
-            "Administration Google Workspace (OU, groupes, licences, politiques) et IAM : provisionnement / révocation, délégations, revues de droits et moindre privilège, en lien avec l’Active Directory.",
+            "Supervision des comptes Google Workspace sur l’ensemble de leur cycle de vie : audit des activités, application du principe de moindre privilège sur les accès Drive et ressources partagées, sécurisation des départs de collaborateurs (transfert, archivage, révocation des accès), gestion de l’environnement collaboratif Google Chat.",
           role: "Cloud & IAM",
-          result: "Annuaire structuré, accès nominatifs et revues de droits.",
-          stack: ["Google Workspace", "IAM", "Active Directory"],
+          result:
+            "Une gouvernance des identités et des accès rigoureuse, limitant les risques liés aux comptes dormants ou aux droits excessifs.",
+          stack: ["Google Workspace", "Moindre privilège", "Gouvernance des accès", "Offboarding"],
           images: projectImages.workspaceIam,
+        },
+        {
+          id: "sso-cloud",
+          category: "cloud" as const,
+          status: "Terminé",
+          title: "Authentification SSO & déploiement d’applications cloud",
+          summary: "SSO Google, identifiants OAuth et mise en production",
+          description:
+            "Configuration et déploiement d’applications web avec authentification (SSO) via Google, incluant la création et gestion des identifiants OAuth/API sur Google Cloud Console, l’intégration des flux d’autorisation et le déploiement en environnement de production.",
+          role: "Cloud & IAM",
+          result:
+            "Applications sécurisées par authentification centralisée, accès simplifié et traçable pour les utilisateurs.",
+          stack: ["Google Cloud", "OAuth 2.0", "SSO", "Déploiement d’applications"],
+          images: projectImages.ssoCloud,
         },
         {
           id: "pam",
@@ -356,14 +380,24 @@ export const copy = {
           title: "Bastion PAM JumpServer — accès privilégiés",
           summary: "Un bastion, des identités nominatives, des commandes à risque bloquées",
           description:
-            "Les accès se faisaient en SSH et RDP directs, avec des mots de passe partagés et aucune imputabilité. J’ai déployé JumpServer comme bastion PAM, seul point d’entrée vers un parc hybride Windows Server, Linux et poste Windows 11. L’organisation s’appuie sur des nœuds Production et Support, des groupes métier et le moindre privilège, y compris un accès prestataire à date d’expiration, avec authentification MFA TOTP, filtre de commandes destructrices et journalisation des sessions. Quatre assets restent joignables uniquement via le bastion : plus aucun mot de passe en clair, chaque action est nominative, et les commandes à risque sont bloquées et tracées.",
+            "Les accès se faisaient en SSH et RDP directs, avec des mots de passe partagés et aucune imputabilité. J’ai déployé JumpServer comme bastion PAM, seul point d’entrée vers un parc hybride Windows Server, Linux et poste Windows 11. L’organisation s’appuie sur des nœuds Production et Support, des groupes métier et le principe du moindre privilège, incluant un accès prestataire à durée d’expiration limitée, avec authentification MFA TOTP, filtrage des commandes destructrices et journalisation intégrale des sessions.",
           role: "Déploiement et gouvernance PAM",
           result:
-            "4 assets joignables uniquement via le bastion. Plus aucun mot de passe en clair. Chaque action est nominative ; les commandes à risque sont bloquées et tracées.",
-          stack: ["JumpServer", "PAM", "Windows Server", "Linux", "ACL", "MFA"],
+            "Quatre assets critiques joignables uniquement via le bastion, sans mot de passe en clair. Chaque action est nominative, traçable, et les commandes à risque sont bloquées et journalisées. Une architecture qui applique concrètement les principes de défense en profondeur, moindre privilège et zero standing privilege.",
+          stack: [
+            "JumpServer",
+            "PAM",
+            "Bastion d’accès",
+            "MFA (TOTP)",
+            "Windows Server",
+            "Linux",
+            "ACL",
+            "Gestion des groupes métier",
+            "Journalisation & audit de sessions",
+          ],
           steps: [
-            "Créer les comptes utilisateurs et les groupes métier",
-            "Contrôler le dashboard (utilisateurs et assets)",
+            "Créer les nœuds, les comptes utilisateurs et les groupes métier",
+            "Contrôler le Dashboard (utilisateurs et assets)",
             "Affecter les nœuds et les autorisations",
             "Authentifier via le portail et le MFA TOTP",
             "Utiliser JumpServer en session (SSH, filtre, audit)",
@@ -465,6 +499,8 @@ export const copy = {
           items: [
             { name: "Google Workspace", highlight: true },
             { name: "IAM", highlight: true },
+            { name: "Google Cloud (Console, OAuth/API)", highlight: true },
+            { name: "SSO / OAuth 2.0", highlight: true },
             { name: "Passbolt", highlight: true },
             { name: "JumpServer (PAM)", highlight: true },
           ],
@@ -476,8 +512,9 @@ export const copy = {
           items: [
             { name: "MCO", highlight: true },
             { name: "Incidents / changements", highlight: true },
+            { name: "Support N1-N3", highlight: true },
             { name: "SOP / procédures", highlight: false },
-            { name: "Documentation", highlight: false },
+            { name: "Documentation", highlight: true },
           ],
         },
         {
@@ -632,16 +669,16 @@ export const copy = {
       jobs: [
         {
           title: "Systems, network and security administrator (apprenticeship)",
-          org: "IFFP · Nanterre",
+          org: "IFFP · Nanterre Préfecture",
           kind: "Apprenticeship",
           period: "January – August 2026",
           bullets: [
-            "Run operations on a hybrid estate (Windows, Linux, VoIP) and N2/N3 support (on-site and remote).",
-            "Identity and access (AD, Google Workspace), server hardening and patch management.",
-            "L2/L3 VLANs, Wi-Fi isolation, firewall rules, Nmap audits.",
-            "Wazuh SIEM rollout, N1/N2 SOPs and inventory tooling.",
+            "Operational maintenance of a hybrid estate (Windows, Linux, VoIP) and N1-N3 support (on-site and remote).",
+            "Identity and access governance: Active Directory, Google Workspace administration (least privilege, offboarding), SSO/OAuth authentication rollout for web applications.",
+            "Server hardening, patch management, L2/L3 VLANs, network segmentation, firewall rules, Nmap audits.",
+            "Wazuh SIEM deployment, SOPs and technical documentation.",
           ],
-          tags: ["AD", "VLAN", "Wazuh", "Ops"],
+          tags: ["AD", "Google Workspace", "SSO", "VLAN", "Wazuh", "MCO"],
         },
         {
           title: "Intern — Robotics & automation",
@@ -685,7 +722,7 @@ export const copy = {
             "Reviewed the existing network, designed a safer architecture and created VLANs (users, Wi-Fi, servers, VoIP, management). Configured network equipment: router, switches, Aruba access points and Zyxel / MikroTik filtering. Isolated traffic with inter-VLAN routing and ACLs.",
           role: "Network design & administration",
           result: "VLANs created, equipment configured, isolated flows and a documented architecture.",
-          stack: ["Switch", "MikroTik", "Aruba AP", "Zyxel", "L2/L3 VLAN"],
+          stack: ["Switch", "MikroTik", "Draw.io", "Zyxel", "L2/L3 VLAN"],
           images: projectImages.archiReseau,
         },
         {
@@ -731,13 +768,20 @@ export const copy = {
           id: "assistance",
           category: "support" as const,
           status: "Completed",
-          title: "User support",
-          summary: "N1/N2/N3 support, tickets and procedures",
+          title: "Documentation & operational materials",
+          summary: "N1/N2/N3 support, tickets, training and documentation",
           description:
-            "N1/N2/N3 user support (hardware, software and network incidents), ticket handling, training colleagues on internal tools and writing procedures.",
-          role: "N1/N2/N3 support",
-          result: "Tickets handled, colleagues supported, procedures written and more reliable support.",
-          stack: ["N1/N2/N3 support", "Active Directory", "Windows 10/11", "ITSM", "User training"],
+            "N1 to N3 user support (hardware, software and network incidents) with ticket handling, coaching and training colleagues on internal tools. Production of technical documentation and user guides (Google Docs, Sheets, Slides, NotebookLM) to back operational procedures.",
+          role: "IT support / Documentation",
+          result:
+            "Responsive support and living documentation, ensuring service continuity and helping teams upskill.",
+          stack: [
+            "N1/N2/N3 support",
+            "Google (Docs, Sheets, Slides)",
+            "NotebookLM",
+            "ITSM",
+            "Technical documentation",
+          ],
           images: projectImages.assistance,
         },
         {
@@ -792,14 +836,29 @@ export const copy = {
           id: "workspace-iam",
           category: "cloud" as const,
           status: "Completed",
-          title: "Google Workspace & identity (IAM)",
-          summary: "Cloud directory, rights and account lifecycle",
+          title: "Google Workspace: account & access governance",
+          summary: "Account lifecycle, Drive access and offboarding",
           description:
-            "Google Workspace admin (OUs, groups, licences, policies) plus IAM: joiners/leavers, delegations, access reviews and least privilege, tied to Active Directory.",
+            "Supervision of Google Workspace accounts across their full lifecycle: activity audits, least privilege on Drive and shared resources, secure leaver handling (transfer, archive, access revocation), and management of the Google Chat collaborative environment.",
           role: "Cloud & IAM",
-          result: "Structured directory, named access and rights reviews.",
-          stack: ["Google Workspace", "IAM", "Active Directory"],
+          result:
+            "Rigorous identity and access governance, limiting risks from dormant accounts or excessive rights.",
+          stack: ["Google Workspace", "Least privilege", "Access governance", "Offboarding"],
           images: projectImages.workspaceIam,
+        },
+        {
+          id: "sso-cloud",
+          category: "cloud" as const,
+          status: "Completed",
+          title: "SSO authentication & cloud application deployment",
+          summary: "Google SSO, OAuth credentials and production rollout",
+          description:
+            "Configuration and deployment of web applications with Google SSO, including creating and managing OAuth/API credentials in Google Cloud Console, integrating authorization flows and deploying to production.",
+          role: "Cloud & IAM",
+          result:
+            "Applications secured by centralised authentication, with simpler and traceable user access.",
+          stack: ["Google Cloud", "OAuth 2.0", "SSO", "Application deployment"],
+          images: projectImages.ssoCloud,
         },
         {
           id: "pam",
@@ -808,14 +867,24 @@ export const copy = {
           title: "JumpServer PAM bastion — privileged access",
           summary: "One bastion, named identities, high-risk commands blocked",
           description:
-            "Access used to be direct SSH and RDP, with shared passwords and no accountability. I rolled out JumpServer as a PAM bastion, the only entry point to a hybrid estate of Windows Server, Linux and a Windows 11 workstation. The setup uses Production and Support nodes, business groups and least privilege, including time-bound contractor access, plus TOTP MFA, a destructive-command filter and session logging. Four assets remain reachable only through the bastion: no plaintext passwords, every action is attributable, and high-risk commands are blocked and traced.",
-          role: "PAM rollout and governance",
+            "Access used to be direct SSH and RDP, with shared passwords and no accountability. I rolled out JumpServer as a PAM bastion, the only entry point to a hybrid estate of Windows Server, Linux and a Windows 11 workstation. The organisation uses Production and Support nodes, business groups and least privilege, including time-limited contractor access, with TOTP MFA, filtering of destructive commands and full session logging.",
+          role: "PAM deployment and governance",
           result:
-            "4 assets reachable only through the bastion. No plaintext passwords. Every action is attributable; high-risk commands are blocked and logged.",
-          stack: ["JumpServer", "PAM", "Windows Server", "Linux", "ACL", "MFA"],
+            "Four critical assets reachable only through the bastion, with no plaintext passwords. Every action is named and traceable, and high-risk commands are blocked and logged. An architecture that applies defence in depth, least privilege and zero standing privilege in practice.",
+          stack: [
+            "JumpServer",
+            "PAM",
+            "Access bastion",
+            "MFA (TOTP)",
+            "Windows Server",
+            "Linux",
+            "ACL",
+            "Business group management",
+            "Session logging & audit",
+          ],
           steps: [
-            "Create user accounts and business groups",
-            "Review the dashboard (users and assets)",
+            "Create nodes, user accounts and business groups",
+            "Review the Dashboard (users and assets)",
             "Assign nodes and authorizations",
             "Authenticate via the portal and TOTP MFA",
             "Use JumpServer in session (SSH, filter, audit)",
@@ -917,6 +986,8 @@ export const copy = {
           items: [
             { name: "Google Workspace", highlight: true },
             { name: "IAM", highlight: true },
+            { name: "Google Cloud (Console, OAuth/API)", highlight: true },
+            { name: "SSO / OAuth 2.0", highlight: true },
             { name: "Passbolt", highlight: true },
             { name: "JumpServer (PAM)", highlight: true },
           ],
@@ -928,8 +999,9 @@ export const copy = {
           items: [
             { name: "Run / MCO", highlight: true },
             { name: "Incidents / changes", highlight: true },
+            { name: "N1-N3 support", highlight: true },
             { name: "SOPs", highlight: false },
-            { name: "Documentation", highlight: false },
+            { name: "Documentation", highlight: true },
           ],
         },
         {
