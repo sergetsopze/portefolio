@@ -19,6 +19,7 @@ const marquee = [
   "Cisco",
   "EBIOS",
   "IAM",
+  "JumpServer",
   "Passbolt",
 ];
 

@@ -25,6 +25,7 @@ function Slide({
   }
   return (
     <Image
+      key={src}
       src={src}
       alt={`${title} ${index + 1}`}
       fill
